@@ -1,0 +1,16 @@
+spring:
+  #mysql数据库
+  datasource:
+    url:  jdbc:mysql://10.23.24.18:3306/lionconfig?characterEncoding=UTF-8
+    username: root
+    password: meiya@20pico
+    driverClassName:  com.mysql.cj.jdbc.Driver
+  data:
+    #MongoDB
+    mongodb:
+      port: 28001 #mongoDB的端口号
+      host: 10.23.24.19 #mongoDB的连接地址
+      database: whale # mongodb的连接的数据库
+      username: whale
+      password: wc@thailand
+      authentication-database: admin
