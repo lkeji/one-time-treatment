@@ -14,3 +14,8 @@ spring:
       username: whale
       password: wc@thailand
       authentication-database: admin
+#xml文件的路径配置的模糊匹配
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:com/**/mapper/*.xml

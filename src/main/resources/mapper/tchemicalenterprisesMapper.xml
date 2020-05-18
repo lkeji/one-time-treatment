@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lkj.onetimetreatment.mapper.tchemicalenterprisesMapper">
+  <resultMap id="BaseResultMap" type="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="company_code" jdbcType="VARCHAR" property="companyCode" />
+    <result column="nrcc_code" jdbcType="VARCHAR" property="nrccCode" />
+    <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_short_name" jdbcType="VARCHAR" property="companyShortName" />
+    <result column="jurisdiction_are_code" jdbcType="INTEGER" property="jurisdictionAreCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="address_registry" jdbcType="VARCHAR" property="addressRegistry" />
+    <result column="address_worksite" jdbcType="VARCHAR" property="addressWorksite" />
+    <result column="loc" jdbcType="VARCHAR" property="loc" />
+    <result column="representative_person" jdbcType="VARCHAR" property="representativePerson" />
+    <result column="representative_mobile" jdbcType="VARCHAR" property="representativeMobile" />
+    <result column="representative_phone" jdbcType="VARCHAR" property="representativePhone" />
+    <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson" />
+    <result column="responsible_mobile" jdbcType="VARCHAR" property="responsibleMobile" />
+    <result column="responsible_phone" jdbcType="VARCHAR" property="responsiblePhone" />
+    <result column="safety_responsible_person" jdbcType="VARCHAR" property="safetyResponsiblePerson" />
+    <result column="safety_responsible_mobile" jdbcType="VARCHAR" property="safetyResponsibleMobile" />
+    <result column="safety_responsible_phone" jdbcType="VARCHAR" property="safetyResponsiblePhone" />
+    <result column="duty_phone" jdbcType="VARCHAR" property="dutyPhone" />
+    <result column="post_code" jdbcType="CHAR" property="postCode" />
+    <result column="establish_date" jdbcType="DATE" property="establishDate" />
+    <result column="web_site" jdbcType="VARCHAR" property="webSite" />
+    <result column="company_scale" jdbcType="VARCHAR" property="companyScale" />
+    <result column="company_type" jdbcType="VARCHAR" property="companyType" />
+    <result column="economic_type" jdbcType="VARCHAR" property="economicType" />
+    <result column="industry_category" jdbcType="VARCHAR" property="industryCategory" />
+    <result column="industry_class" jdbcType="VARCHAR" property="industryClass" />
+    <result column="social_credit_code" jdbcType="VARCHAR" property="socialCreditCode" />
+    <result column="business_scope" jdbcType="VARCHAR" property="businessScope" />
+    <result column="safety_standard_grad" jdbcType="VARCHAR" property="safetyStandardGrad" />
+    <result column="safety_license_no" jdbcType="VARCHAR" property="safetyLicenseNo" />
+    <result column="safety_license_start" jdbcType="DATE" property="safetyLicenseStart" />
+    <result column="safety_license_end" jdbcType="DATE" property="safetyLicenseEnd" />
+    <result column="people_employee" jdbcType="INTEGER" property="peopleEmployee" />
+    <result column="people_practitioner" jdbcType="INTEGER" property="peoplePractitioner" />
+    <result column="people_toxic" jdbcType="INTEGER" property="peopleToxic" />
+    <result column="people_hazard" jdbcType="INTEGER" property="peopleHazard" />
+    <result column="people_operation" jdbcType="INTEGER" property="peopleOperation" />
+    <result column="in_industrial_park" jdbcType="CHAR" property="inIndustrialPark" />
+    <result column="industrial_park_name" jdbcType="VARCHAR" property="industrialParkName" />
+    <result column="company_status" jdbcType="CHAR" property="companyStatus" />
+    <result column="factory_area" jdbcType="DOUBLE" property="factoryArea" />
+    <result column="data_sources" jdbcType="VARCHAR" property="dataSources" />
+    <result column="cd_operation" jdbcType="VARCHAR" property="cdOperation" />
+    <result column="dangerous_type" jdbcType="VARCHAR" property="dangerousType" />
+    <result column="focus_dangerous_type" jdbcType="VARCHAR" property="focusDangerousType" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="iscollect" jdbcType="VARCHAR" property="iscollect" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    <result column="range_geometry_data" jdbcType="LONGVARCHAR" property="rangeGeometryData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, company_code, nrcc_code, parent_code, company_name, company_short_name, jurisdiction_are_code, 
+    area_code, address_registry, address_worksite, loc, representative_person, representative_mobile, 
+    representative_phone, responsible_person, responsible_mobile, responsible_phone, 
+    safety_responsible_person, safety_responsible_mobile, safety_responsible_phone, duty_phone, 
+    post_code, establish_date, web_site, company_scale, company_type, economic_type, 
+    industry_category, industry_class, social_credit_code, business_scope, safety_standard_grad, 
+    safety_license_no, safety_license_start, safety_license_end, people_employee, people_practitioner, 
+    people_toxic, people_hazard, people_operation, in_industrial_park, industrial_park_name, 
+    company_status, factory_area, data_sources, cd_operation, dangerous_type, focus_dangerous_type, 
+    business_type, iscollect
+  </sql>
+  <sql id="Blob_Column_List">
+    range_geometry_data
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_chemical_enterprises
+    where id = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="selectonly22" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT count(*)as istotal  FROM `t_chemical_enterprises` where company_name =#{companyName,jdbcType=VARCHAR}
+  </select>
+
+
+  <insert id="addMultSiteInfo" parameterType="java.util.List">
+    insert into t_chemical_enterprises
+    (id,company_code,area_code,company_name,address_registry,responsible_person,
+    responsible_phone,company_scale,people_practitioner)
+    values
+    <foreach collection="list" item="siteInfos" index="index"
+             separator=",">
+      (
+      #{siteInfos.id},
+      #{siteInfos.companyCode},
+      #{siteInfos.areaCode},
+      #{siteInfos.companyName},
+      #{siteInfos.addressRegistry},
+      #{siteInfos.responsiblePerson},
+      #{siteInfos.responsiblePhone},
+      #{siteInfos.companyScale},
+      #{siteInfos.peoplePractitioner}
+      )
+    </foreach>
+  </insert>
+
+
+
+
+
+
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_chemical_enterprises
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    insert into t_chemical_enterprises (id, company_code, nrcc_code, 
+      parent_code, company_name, company_short_name, 
+      jurisdiction_are_code, area_code, address_registry, 
+      address_worksite, loc, representative_person, 
+      representative_mobile, representative_phone, 
+      responsible_person, responsible_mobile, responsible_phone, 
+      safety_responsible_person, safety_responsible_mobile, 
+      safety_responsible_phone, duty_phone, post_code, 
+      establish_date, web_site, company_scale, 
+      company_type, economic_type, industry_category, 
+      industry_class, social_credit_code, business_scope, 
+      safety_standard_grad, safety_license_no, safety_license_start, 
+      safety_license_end, people_employee, people_practitioner, 
+      people_toxic, people_hazard, people_operation, 
+      in_industrial_park, industrial_park_name, company_status, 
+      factory_area, data_sources, cd_operation, 
+      dangerous_type, focus_dangerous_type, business_type, 
+      iscollect, range_geometry_data)
+    values (#{id,jdbcType=CHAR}, #{companyCode,jdbcType=VARCHAR}, #{nrccCode,jdbcType=VARCHAR}, 
+      #{parentCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{companyShortName,jdbcType=VARCHAR}, 
+      #{jurisdictionAreCode,jdbcType=INTEGER}, #{areaCode,jdbcType=VARCHAR}, #{addressRegistry,jdbcType=VARCHAR}, 
+      #{addressWorksite,jdbcType=VARCHAR}, #{loc,jdbcType=VARCHAR}, #{representativePerson,jdbcType=VARCHAR}, 
+      #{representativeMobile,jdbcType=VARCHAR}, #{representativePhone,jdbcType=VARCHAR}, 
+      #{responsiblePerson,jdbcType=VARCHAR}, #{responsibleMobile,jdbcType=VARCHAR}, #{responsiblePhone,jdbcType=VARCHAR}, 
+      #{safetyResponsiblePerson,jdbcType=VARCHAR}, #{safetyResponsibleMobile,jdbcType=VARCHAR}, 
+      #{safetyResponsiblePhone,jdbcType=VARCHAR}, #{dutyPhone,jdbcType=VARCHAR}, #{postCode,jdbcType=CHAR}, 
+      #{establishDate,jdbcType=DATE}, #{webSite,jdbcType=VARCHAR}, #{companyScale,jdbcType=VARCHAR}, 
+      #{companyType,jdbcType=VARCHAR}, #{economicType,jdbcType=VARCHAR}, #{industryCategory,jdbcType=VARCHAR}, 
+      #{industryClass,jdbcType=VARCHAR}, #{socialCreditCode,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, 
+      #{safetyStandardGrad,jdbcType=VARCHAR}, #{safetyLicenseNo,jdbcType=VARCHAR}, #{safetyLicenseStart,jdbcType=DATE}, 
+      #{safetyLicenseEnd,jdbcType=DATE}, #{peopleEmployee,jdbcType=INTEGER}, #{peoplePractitioner,jdbcType=INTEGER}, 
+      #{peopleToxic,jdbcType=INTEGER}, #{peopleHazard,jdbcType=INTEGER}, #{peopleOperation,jdbcType=INTEGER}, 
+      #{inIndustrialPark,jdbcType=CHAR}, #{industrialParkName,jdbcType=VARCHAR}, #{companyStatus,jdbcType=CHAR}, 
+      #{factoryArea,jdbcType=DOUBLE}, #{dataSources,jdbcType=VARCHAR}, #{cdOperation,jdbcType=VARCHAR}, 
+      #{dangerousType,jdbcType=VARCHAR}, #{focusDangerousType,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, 
+      #{iscollect,jdbcType=VARCHAR}, #{rangeGeometryData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    insert into t_chemical_enterprises
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyCode != null">
+        company_code,
+      </if>
+      <if test="nrccCode != null">
+        nrcc_code,
+      </if>
+      <if test="parentCode != null">
+        parent_code,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="companyShortName != null">
+        company_short_name,
+      </if>
+      <if test="jurisdictionAreCode != null">
+        jurisdiction_are_code,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="addressRegistry != null">
+        address_registry,
+      </if>
+      <if test="addressWorksite != null">
+        address_worksite,
+      </if>
+      <if test="loc != null">
+        loc,
+      </if>
+      <if test="representativePerson != null">
+        representative_person,
+      </if>
+      <if test="representativeMobile != null">
+        representative_mobile,
+      </if>
+      <if test="representativePhone != null">
+        representative_phone,
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person,
+      </if>
+      <if test="responsibleMobile != null">
+        responsible_mobile,
+      </if>
+      <if test="responsiblePhone != null">
+        responsible_phone,
+      </if>
+      <if test="safetyResponsiblePerson != null">
+        safety_responsible_person,
+      </if>
+      <if test="safetyResponsibleMobile != null">
+        safety_responsible_mobile,
+      </if>
+      <if test="safetyResponsiblePhone != null">
+        safety_responsible_phone,
+      </if>
+      <if test="dutyPhone != null">
+        duty_phone,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="establishDate != null">
+        establish_date,
+      </if>
+      <if test="webSite != null">
+        web_site,
+      </if>
+      <if test="companyScale != null">
+        company_scale,
+      </if>
+      <if test="companyType != null">
+        company_type,
+      </if>
+      <if test="economicType != null">
+        economic_type,
+      </if>
+      <if test="industryCategory != null">
+        industry_category,
+      </if>
+      <if test="industryClass != null">
+        industry_class,
+      </if>
+      <if test="socialCreditCode != null">
+        social_credit_code,
+      </if>
+      <if test="businessScope != null">
+        business_scope,
+      </if>
+      <if test="safetyStandardGrad != null">
+        safety_standard_grad,
+      </if>
+      <if test="safetyLicenseNo != null">
+        safety_license_no,
+      </if>
+      <if test="safetyLicenseStart != null">
+        safety_license_start,
+      </if>
+      <if test="safetyLicenseEnd != null">
+        safety_license_end,
+      </if>
+      <if test="peopleEmployee != null">
+        people_employee,
+      </if>
+      <if test="peoplePractitioner != null">
+        people_practitioner,
+      </if>
+      <if test="peopleToxic != null">
+        people_toxic,
+      </if>
+      <if test="peopleHazard != null">
+        people_hazard,
+      </if>
+      <if test="peopleOperation != null">
+        people_operation,
+      </if>
+      <if test="inIndustrialPark != null">
+        in_industrial_park,
+      </if>
+      <if test="industrialParkName != null">
+        industrial_park_name,
+      </if>
+      <if test="companyStatus != null">
+        company_status,
+      </if>
+      <if test="factoryArea != null">
+        factory_area,
+      </if>
+      <if test="dataSources != null">
+        data_sources,
+      </if>
+      <if test="cdOperation != null">
+        cd_operation,
+      </if>
+      <if test="dangerousType != null">
+        dangerous_type,
+      </if>
+      <if test="focusDangerousType != null">
+        focus_dangerous_type,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="iscollect != null">
+        iscollect,
+      </if>
+      <if test="rangeGeometryData != null">
+        range_geometry_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="companyCode != null">
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nrccCode != null">
+        #{nrccCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyShortName != null">
+        #{companyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdictionAreCode != null">
+        #{jurisdictionAreCode,jdbcType=INTEGER},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegistry != null">
+        #{addressRegistry,jdbcType=VARCHAR},
+      </if>
+      <if test="addressWorksite != null">
+        #{addressWorksite,jdbcType=VARCHAR},
+      </if>
+      <if test="loc != null">
+        #{loc,jdbcType=VARCHAR},
+      </if>
+      <if test="representativePerson != null">
+        #{representativePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="representativeMobile != null">
+        #{representativeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="representativePhone != null">
+        #{representativePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePerson != null">
+        #{responsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibleMobile != null">
+        #{responsibleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePhone != null">
+        #{responsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsiblePerson != null">
+        #{safetyResponsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsibleMobile != null">
+        #{safetyResponsibleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsiblePhone != null">
+        #{safetyResponsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyPhone != null">
+        #{dutyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=CHAR},
+      </if>
+      <if test="establishDate != null">
+        #{establishDate,jdbcType=DATE},
+      </if>
+      <if test="webSite != null">
+        #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null">
+        #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null">
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="economicType != null">
+        #{economicType,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null">
+        #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null">
+        #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCreditCode != null">
+        #{socialCreditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null">
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyStandardGrad != null">
+        #{safetyStandardGrad,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyLicenseNo != null">
+        #{safetyLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyLicenseStart != null">
+        #{safetyLicenseStart,jdbcType=DATE},
+      </if>
+      <if test="safetyLicenseEnd != null">
+        #{safetyLicenseEnd,jdbcType=DATE},
+      </if>
+      <if test="peopleEmployee != null">
+        #{peopleEmployee,jdbcType=INTEGER},
+      </if>
+      <if test="peoplePractitioner != null">
+        #{peoplePractitioner,jdbcType=INTEGER},
+      </if>
+      <if test="peopleToxic != null">
+        #{peopleToxic,jdbcType=INTEGER},
+      </if>
+      <if test="peopleHazard != null">
+        #{peopleHazard,jdbcType=INTEGER},
+      </if>
+      <if test="peopleOperation != null">
+        #{peopleOperation,jdbcType=INTEGER},
+      </if>
+      <if test="inIndustrialPark != null">
+        #{inIndustrialPark,jdbcType=CHAR},
+      </if>
+      <if test="industrialParkName != null">
+        #{industrialParkName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null">
+        #{companyStatus,jdbcType=CHAR},
+      </if>
+      <if test="factoryArea != null">
+        #{factoryArea,jdbcType=DOUBLE},
+      </if>
+      <if test="dataSources != null">
+        #{dataSources,jdbcType=VARCHAR},
+      </if>
+      <if test="cdOperation != null">
+        #{cdOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerousType != null">
+        #{dangerousType,jdbcType=VARCHAR},
+      </if>
+      <if test="focusDangerousType != null">
+        #{focusDangerousType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="iscollect != null">
+        #{iscollect,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeGeometryData != null">
+        #{rangeGeometryData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    update t_chemical_enterprises
+    <set>
+      <if test="companyCode != null">
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nrccCode != null">
+        nrcc_code = #{nrccCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        parent_code = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyShortName != null">
+        company_short_name = #{companyShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdictionAreCode != null">
+        jurisdiction_are_code = #{jurisdictionAreCode,jdbcType=INTEGER},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegistry != null">
+        address_registry = #{addressRegistry,jdbcType=VARCHAR},
+      </if>
+      <if test="addressWorksite != null">
+        address_worksite = #{addressWorksite,jdbcType=VARCHAR},
+      </if>
+      <if test="loc != null">
+        loc = #{loc,jdbcType=VARCHAR},
+      </if>
+      <if test="representativePerson != null">
+        representative_person = #{representativePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="representativeMobile != null">
+        representative_mobile = #{representativeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="representativePhone != null">
+        representative_phone = #{representativePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibleMobile != null">
+        responsible_mobile = #{responsibleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePhone != null">
+        responsible_phone = #{responsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsiblePerson != null">
+        safety_responsible_person = #{safetyResponsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsibleMobile != null">
+        safety_responsible_mobile = #{safetyResponsibleMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyResponsiblePhone != null">
+        safety_responsible_phone = #{safetyResponsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyPhone != null">
+        duty_phone = #{dutyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=CHAR},
+      </if>
+      <if test="establishDate != null">
+        establish_date = #{establishDate,jdbcType=DATE},
+      </if>
+      <if test="webSite != null">
+        web_site = #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScale != null">
+        company_scale = #{companyScale,jdbcType=VARCHAR},
+      </if>
+      <if test="companyType != null">
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="economicType != null">
+        economic_type = #{economicType,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null">
+        industry_category = #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industryClass != null">
+        industry_class = #{industryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCreditCode != null">
+        social_credit_code = #{socialCreditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null">
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyStandardGrad != null">
+        safety_standard_grad = #{safetyStandardGrad,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyLicenseNo != null">
+        safety_license_no = #{safetyLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="safetyLicenseStart != null">
+        safety_license_start = #{safetyLicenseStart,jdbcType=DATE},
+      </if>
+      <if test="safetyLicenseEnd != null">
+        safety_license_end = #{safetyLicenseEnd,jdbcType=DATE},
+      </if>
+      <if test="peopleEmployee != null">
+        people_employee = #{peopleEmployee,jdbcType=INTEGER},
+      </if>
+      <if test="peoplePractitioner != null">
+        people_practitioner = #{peoplePractitioner,jdbcType=INTEGER},
+      </if>
+      <if test="peopleToxic != null">
+        people_toxic = #{peopleToxic,jdbcType=INTEGER},
+      </if>
+      <if test="peopleHazard != null">
+        people_hazard = #{peopleHazard,jdbcType=INTEGER},
+      </if>
+      <if test="peopleOperation != null">
+        people_operation = #{peopleOperation,jdbcType=INTEGER},
+      </if>
+      <if test="inIndustrialPark != null">
+        in_industrial_park = #{inIndustrialPark,jdbcType=CHAR},
+      </if>
+      <if test="industrialParkName != null">
+        industrial_park_name = #{industrialParkName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyStatus != null">
+        company_status = #{companyStatus,jdbcType=CHAR},
+      </if>
+      <if test="factoryArea != null">
+        factory_area = #{factoryArea,jdbcType=DOUBLE},
+      </if>
+      <if test="dataSources != null">
+        data_sources = #{dataSources,jdbcType=VARCHAR},
+      </if>
+      <if test="cdOperation != null">
+        cd_operation = #{cdOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerousType != null">
+        dangerous_type = #{dangerousType,jdbcType=VARCHAR},
+      </if>
+      <if test="focusDangerousType != null">
+        focus_dangerous_type = #{focusDangerousType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="iscollect != null">
+        iscollect = #{iscollect,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeGeometryData != null">
+        range_geometry_data = #{rangeGeometryData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    update t_chemical_enterprises
+    set company_code = #{companyCode,jdbcType=VARCHAR},
+      nrcc_code = #{nrccCode,jdbcType=VARCHAR},
+      parent_code = #{parentCode,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_short_name = #{companyShortName,jdbcType=VARCHAR},
+      jurisdiction_are_code = #{jurisdictionAreCode,jdbcType=INTEGER},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address_registry = #{addressRegistry,jdbcType=VARCHAR},
+      address_worksite = #{addressWorksite,jdbcType=VARCHAR},
+      loc = #{loc,jdbcType=VARCHAR},
+      representative_person = #{representativePerson,jdbcType=VARCHAR},
+      representative_mobile = #{representativeMobile,jdbcType=VARCHAR},
+      representative_phone = #{representativePhone,jdbcType=VARCHAR},
+      responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+      responsible_mobile = #{responsibleMobile,jdbcType=VARCHAR},
+      responsible_phone = #{responsiblePhone,jdbcType=VARCHAR},
+      safety_responsible_person = #{safetyResponsiblePerson,jdbcType=VARCHAR},
+      safety_responsible_mobile = #{safetyResponsibleMobile,jdbcType=VARCHAR},
+      safety_responsible_phone = #{safetyResponsiblePhone,jdbcType=VARCHAR},
+      duty_phone = #{dutyPhone,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=CHAR},
+      establish_date = #{establishDate,jdbcType=DATE},
+      web_site = #{webSite,jdbcType=VARCHAR},
+      company_scale = #{companyScale,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      economic_type = #{economicType,jdbcType=VARCHAR},
+      industry_category = #{industryCategory,jdbcType=VARCHAR},
+      industry_class = #{industryClass,jdbcType=VARCHAR},
+      social_credit_code = #{socialCreditCode,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      safety_standard_grad = #{safetyStandardGrad,jdbcType=VARCHAR},
+      safety_license_no = #{safetyLicenseNo,jdbcType=VARCHAR},
+      safety_license_start = #{safetyLicenseStart,jdbcType=DATE},
+      safety_license_end = #{safetyLicenseEnd,jdbcType=DATE},
+      people_employee = #{peopleEmployee,jdbcType=INTEGER},
+      people_practitioner = #{peoplePractitioner,jdbcType=INTEGER},
+      people_toxic = #{peopleToxic,jdbcType=INTEGER},
+      people_hazard = #{peopleHazard,jdbcType=INTEGER},
+      people_operation = #{peopleOperation,jdbcType=INTEGER},
+      in_industrial_park = #{inIndustrialPark,jdbcType=CHAR},
+      industrial_park_name = #{industrialParkName,jdbcType=VARCHAR},
+      company_status = #{companyStatus,jdbcType=CHAR},
+      factory_area = #{factoryArea,jdbcType=DOUBLE},
+      data_sources = #{dataSources,jdbcType=VARCHAR},
+      cd_operation = #{cdOperation,jdbcType=VARCHAR},
+      dangerous_type = #{dangerousType,jdbcType=VARCHAR},
+      focus_dangerous_type = #{focusDangerousType,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      iscollect = #{iscollect,jdbcType=VARCHAR},
+      range_geometry_data = #{rangeGeometryData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lkj.onetimetreatment.po.t_chemical_enterprises">
+    update t_chemical_enterprises
+    set company_code = #{companyCode,jdbcType=VARCHAR},
+      nrcc_code = #{nrccCode,jdbcType=VARCHAR},
+      parent_code = #{parentCode,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_short_name = #{companyShortName,jdbcType=VARCHAR},
+      jurisdiction_are_code = #{jurisdictionAreCode,jdbcType=INTEGER},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address_registry = #{addressRegistry,jdbcType=VARCHAR},
+      address_worksite = #{addressWorksite,jdbcType=VARCHAR},
+      loc = #{loc,jdbcType=VARCHAR},
+      representative_person = #{representativePerson,jdbcType=VARCHAR},
+      representative_mobile = #{representativeMobile,jdbcType=VARCHAR},
+      representative_phone = #{representativePhone,jdbcType=VARCHAR},
+      responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+      responsible_mobile = #{responsibleMobile,jdbcType=VARCHAR},
+      responsible_phone = #{responsiblePhone,jdbcType=VARCHAR},
+      safety_responsible_person = #{safetyResponsiblePerson,jdbcType=VARCHAR},
+      safety_responsible_mobile = #{safetyResponsibleMobile,jdbcType=VARCHAR},
+      safety_responsible_phone = #{safetyResponsiblePhone,jdbcType=VARCHAR},
+      duty_phone = #{dutyPhone,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=CHAR},
+      establish_date = #{establishDate,jdbcType=DATE},
+      web_site = #{webSite,jdbcType=VARCHAR},
+      company_scale = #{companyScale,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      economic_type = #{economicType,jdbcType=VARCHAR},
+      industry_category = #{industryCategory,jdbcType=VARCHAR},
+      industry_class = #{industryClass,jdbcType=VARCHAR},
+      social_credit_code = #{socialCreditCode,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      safety_standard_grad = #{safetyStandardGrad,jdbcType=VARCHAR},
+      safety_license_no = #{safetyLicenseNo,jdbcType=VARCHAR},
+      safety_license_start = #{safetyLicenseStart,jdbcType=DATE},
+      safety_license_end = #{safetyLicenseEnd,jdbcType=DATE},
+      people_employee = #{peopleEmployee,jdbcType=INTEGER},
+      people_practitioner = #{peoplePractitioner,jdbcType=INTEGER},
+      people_toxic = #{peopleToxic,jdbcType=INTEGER},
+      people_hazard = #{peopleHazard,jdbcType=INTEGER},
+      people_operation = #{peopleOperation,jdbcType=INTEGER},
+      in_industrial_park = #{inIndustrialPark,jdbcType=CHAR},
+      industrial_park_name = #{industrialParkName,jdbcType=VARCHAR},
+      company_status = #{companyStatus,jdbcType=CHAR},
+      factory_area = #{factoryArea,jdbcType=DOUBLE},
+      data_sources = #{dataSources,jdbcType=VARCHAR},
+      cd_operation = #{cdOperation,jdbcType=VARCHAR},
+      dangerous_type = #{dangerousType,jdbcType=VARCHAR},
+      focus_dangerous_type = #{focusDangerousType,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      iscollect = #{iscollect,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -21,6 +21,10 @@ public interface ISiteInfoServiceI  {
      */
     CommonResult importExcel(MultipartFile file);
     /**
+     * excel导入mysql
+     * */
+    CommonResult ExceltoMysql(MultipartFile file);
+    /**
      * excel导入到mongoDB
      * */
     CommonResult ExceltoMaogoDb(MultipartFile file);

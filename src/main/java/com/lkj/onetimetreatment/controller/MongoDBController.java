@@ -34,7 +34,8 @@ public class MongoDBController {
     @PostMapping(value = "/excelToMongoDB")
     public CommonResult ExcelToMongoDB (@RequestParam("file") MultipartFile file) {
 //        CommonResult commonResult = siteInfoService.ExceltoMaogoDb(file);
-        CommonResult commonResult = siteInfoService.ExceltoMaogoDb2(file);
+//        CommonResult commonResult = siteInfoService.ExceltoMaogoDb2(file);
+        CommonResult commonResult = siteInfoService.ExceltoMysql(file);
         return commonResult;
     }
     @ApiOperation(value = "excel导入")

@@ -3,7 +3,9 @@ package com.lkj.onetimetreatment.service.impl;
 import com.lkj.onetimetreatment.common.CommonResult;
 import com.lkj.onetimetreatment.entity.wb0097EarthquakeHistoryLibrary;
 import com.lkj.onetimetreatment.entity.wb0097EarthquakeMonitoring;
+import com.lkj.onetimetreatment.entity.wb0097enterpriseDataExpand;
 import com.lkj.onetimetreatment.mapper.ISiteInfoMapper;
+import com.lkj.onetimetreatment.mapper.tchemicalenterprisesMapper;
 import com.lkj.onetimetreatment.service.ISiteInfoServiceI;
 import com.lkj.onetimetreatment.utils.ExcelUtil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -34,6 +36,10 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
 
     @Autowired
     private MongoTemplate mongoDbCRUDI;
+
+    @Autowired
+    private tchemicalenterprisesMapper tchemicalnterprisesMapper;
+
 
     @Override
     public CommonResult importExcel(MultipartFile file) {
@@ -82,6 +88,101 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
     }
 
     @Override
+    public CommonResult ExceltoMysql(MultipartFile file) {
+        List<Map<String, Object>> excelsMap = new ArrayList<>();
+        InputStream in = null;
+        try {
+            in = file.getInputStream();
+            List<List<Object>> excels = ExcelUtil.readExcel(in);
+            for (int i = 3; i < excels.size(); i++) {
+                Map<String, Object> map = new HashMap<>();
+                wb0097enterpriseDataExpand wb0097enterpriseDataExpand = new wb0097enterpriseDataExpand();
+                String mysqlid =null;
+                for (int j = 1; j < excels.get(i).size(); j++) {
+                    switch (j) {
+//                        case 0:
+//                            map.put("title", excels.get(i).get(j));
+//                            break;
+                        case 1:
+                            map.put("areaCode", excels.get(i).get(j));
+                            break;
+                        case 2:
+                            map.put("companyName", excels.get(i).get(j));
+                            break;
+                        case 3:
+                            map.put("addressRegistry", excels.get(i).get(j));
+                            break;
+                        case 4:
+                            map.put("responsiblePerson", excels.get(i).get(j));
+                            break;
+                        case 5:
+                            map.put("responsiblePhone", excels.get(i).get(j));
+                            break;
+                        case 6:
+                            wb0097enterpriseDataExpand.setNormalre(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        case 7:
+                            wb0097enterpriseDataExpand.setIsmajorso(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        case 8:
+                            wb0097enterpriseDataExpand.setNumbertan(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        case 9:
+                            wb0097enterpriseDataExpand.setMstcla(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        case 10:
+                            wb0097enterpriseDataExpand.setIswirtmhd(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        case 11:
+                            map.put("companyScale", excels.get(i).get(j));
+                            break;
+                        case 12:
+                            map.put("peoplePractitioner", excels.get(i).get(j));
+                            break;
+                        case 13:
+                            wb0097enterpriseDataExpand.setRemk(String.valueOf(excels.get(i).get(j)));
+                            break;
+                        default:
+//                             mysqlid = DigestUtils.md5Hex(excels.get(i).get(2) + "---");
+//                            excelsMap.get(i).put("id", mysqlid);
+                            break;
+                    }
+
+                }
+
+                int companyName = tchemicalnterprisesMapper.selectonly22(String.valueOf(map.get("companyName")));
+                if (companyName == 0) {
+                 mysqlid = DigestUtils.md5Hex(map.get("companyName") + "---");
+                    map.put("id", mysqlid);
+                    map.put("companyCode", "");
+                    map.put("jurisdictionAreCode", "350200");
+                    excelsMap.add(map);
+                    wb0097enterpriseDataExpand.setId(DigestUtils.md5Hex(mysqlid));
+                    wb0097enterpriseDataExpand.setMysqlid(mysqlid);
+                    //todo新增mogo
+                    mongoDbCRUDI.save(wb0097enterpriseDataExpand);
+                } else {
+                    System.out.println("..."+map.get("companyName"));
+                }
+
+            }
+            tchemicalnterprisesMapper.addMultSiteInfo(excelsMap);
+
+            return CommonResult.success("上传成功");
+        } catch (IOException e) {
+            return CommonResult.failed("上传错误");
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                logger.error("导入 siteInfo excel 关流错误 : " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
     public CommonResult ExceltoMaogoDb(MultipartFile file) {
         InputStream in = null;
         try {
@@ -93,35 +194,35 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
                 for (int j = 0; j < excels.get(i).size(); j++) {
                     switch (j) {
                         case 0:
-                            wb0097EarthquakeMonitoring.setStationname(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setStationname(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 1:
-                            wb0097EarthquakeMonitoring.setAdrs(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setAdrs(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 2:
-                            wb0097EarthquakeMonitoring.setPrna(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setPrna(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 3:
-                            wb0097EarthquakeMonitoring.setErar(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setErar(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 4:
-                            wb0097EarthquakeMonitoring.setCede(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setCede(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 5:
-                            wb0097EarthquakeMonitoring.setNumbering(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setNumbering(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 6:
-                            wb0097EarthquakeMonitoring.setStationtype(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setStationtype(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 7:
-                            wb0097EarthquakeMonitoring.setLoc(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setLoc(String.valueOf(excels.get(i).get(j)));
                             break;
                         default:
                             break;
                     }
 
                 }
-                wb0097EarthquakeMonitoring.setId(DigestUtils.md5Hex(excels.get(i)+""));
+                wb0097EarthquakeMonitoring.setId(DigestUtils.md5Hex(excels.get(i) + ""));
                 mongoDbCRUDI.save(wb0097EarthquakeMonitoring);
             }
             return CommonResult.success("新增mongodb成功");
@@ -137,6 +238,7 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
             }
         }
     }
+
     @Override
     public CommonResult ExceltoMaogoDb2(MultipartFile file) {
         InputStream in = null;
@@ -152,13 +254,13 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
 //                            wb0097EarthquakeMonitoring.setStationname(String.valueOf( excels.get(i).get(j)));
 //                            break;
                         case 1:
-                            wb0097EarthquakeMonitoring.setTimeofoccurrence(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setTimeofoccurrence(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 2:
-                            wb0097EarthquakeMonitoring.setEarthquakesituation(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setEarthquakesituation(String.valueOf(excels.get(i).get(j)));
                             break;
                         case 3:
-                            wb0097EarthquakeMonitoring.setHistoricalsources(String.valueOf( excels.get(i).get(j)));
+                            wb0097EarthquakeMonitoring.setHistoricalsources(String.valueOf(excels.get(i).get(j)));
                             break;
 //                        case 4:
 //                            wb0097EarthquakeMonitoring.setEpicenterlat(String.valueOf( excels.get(i).get(j)));
@@ -177,7 +279,7 @@ public class SiteInfoServiceImpl implements ISiteInfoServiceI {
                     }
                 }
                 wb0097EarthquakeMonitoring.setEpicentertype("2");
-                wb0097EarthquakeMonitoring.setId(DigestUtils.md5Hex(excels.get(i)+""));
+                wb0097EarthquakeMonitoring.setId(DigestUtils.md5Hex(excels.get(i) + ""));
                 mongoDbCRUDI.save(wb0097EarthquakeMonitoring);
             }
             return CommonResult.success("新增mongodb成功");

@@ -23,7 +23,6 @@ public class wb0097EarthquakeHistoryLibrary {
     @Indexed
     private String referencePlaceName;   //参考地名
     private String epicentertype;   //地震历史类型:0厦门周边地区 1厦门市历史地震史料 2同安县历史地震史料 3金门县历史地震史料 4历史上厦门邻区主要强震活动对厦门的影响烈度
-
     private String timeofoccurrence;   //发生时间
     private String earthquakesituation;   //地震情况
     private String historicalsources;   //史料来源
