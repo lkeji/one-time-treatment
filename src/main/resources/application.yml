@@ -8,12 +8,12 @@ spring:
   data:
     #MongoDB
     mongodb:
-      port: 28001 #mongoDB的端口号
-      host: 10.23.24.19 #mongoDB的连接地址
-      database: whale # mongodb的连接的数据库
-      username: whale
-      password: wc@thailand
-      authentication-database: admin
+      port: 你的mongoDB的端口 #mongoDB的端口号
+      host: 你的mongoDB的IP #mongoDB的连接地址
+      database: 你的mongoDB的数据库名称 # mongodb的连接的数据库
+      username: 你的mongoDB的账号
+      password: 你的mongoDB的密码
+      authentication-database: admin #这个不需要改动
 #xml文件的路径配置的模糊匹配
 mybatis:
   mapper-locations:
