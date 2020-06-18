@@ -22,6 +22,8 @@
         <poiooxml.version>3.17</poiooxml.version>
         <jxl.version>2.6.12</jxl.version>
         <bower.version>4.3.0</bower.version>
+        <okhttp.version>3.8.1</okhttp.version>
+        <fastjson.version>1.2.7</fastjson.version>
 
         <beanutils.version>1.9.3</beanutils.version>
         <commonsLang.version>2.6</commonsLang.version>
@@ -56,12 +58,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--        &lt;!&ndash;SpringData工具包&ndash;&gt;
+<!--        &lt;!&ndash;SpringData工具包&ndash;&gt;-->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
             <version>${spring-data-commons.version}</version>
-        </dependency>-->
+        </dependency>
         <!--MyBatis分页插件starter-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -114,10 +116,10 @@
             <version>${commonsLang.version}</version>
         </dependency>
         <!--mongoDB-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -138,6 +140,17 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <!-- OKHttp3依赖 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,9 +1,6 @@
 package com.lkj.onetimetreatment.service;
 
 import com.lkj.onetimetreatment.common.CommonResult;
-import com.lkj.onetimetreatment.entity.wb0097EarthquakeMonitoring;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.OutputStream;
@@ -20,6 +17,13 @@ public interface ISiteInfoServiceI  {
      * @return 统一返回
      */
     CommonResult importExcel(MultipartFile file);
+    /**
+     * 高德地图根据地址转换为经纬度
+     * @return 统一返回
+     */
+    CommonResult getlocalioc(String key, String localName, String city,boolean ischage84);
+
+    CommonResult chage84(String lan, String lon, Integer mapType);
     /**
      * excel导入mysql
      * */
