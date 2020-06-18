@@ -25,7 +25,7 @@
         <okhttp.version>3.8.1</okhttp.version>
         <fastjson.version>1.2.7</fastjson.version>
 
-        <beanutils.version>1.9.3</beanutils.version>
+        <beanutils.version>1.9.4</beanutils.version>
         <commonsLang.version>2.6</commonsLang.version>
         <commonsLang3.version>3.10</commonsLang3.version>
         <pagehelper-starter.version>1.2.10</pagehelper-starter.version>
