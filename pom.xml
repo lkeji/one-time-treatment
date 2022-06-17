@@ -23,7 +23,7 @@
         <jxl.version>2.6.12</jxl.version>
         <bower.version>4.3.0</bower.version>
         <okhttp.version>3.8.1</okhttp.version>
-        <fastjson.version>1.2.7</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
 
         <beanutils.version>1.9.3</beanutils.version>
         <commonsLang.version>2.6</commonsLang.version>
